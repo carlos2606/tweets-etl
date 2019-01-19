@@ -1,88 +1,50 @@
 # tweets-etl
 
-ETL process for loading tweets from suspicious users into DynamoDB. 
+ETL process for loading tweets from suspicious users into DynamoDB.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Download the data,
+```
+https://s3.amazonaws.com/astscrmltestdata/RealUsers.tar.gz
+```
+Decompress it. You will find a single directory which contains 25,000 files, each of the files represents a Twitter user and all its tweets. Each of these files is a single text file that is compressed. Each line in the decompressed files represents a tweet, and is a valid JSON. The contents of the JSON are best described in the Twitter API’s website for the Tweet and User objects.
+```
+https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object.html
+https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object.html
+```
 
-```
-Give examples
-```
+Create a "Data" directory in the root of this repository and move the 25,000 .gz files there. The code will decompress them for you, no worries.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Intall Docker Engine (https://www.docker.com/products/docker-engine)
 
-Say what the step will be
+Run the following commands from the Docker console
 
-```
-Give the example
-```
-
-And repeat
+This command will build the Docker image.
 
 ```
-until finished
+docker build -t tweets-etl .
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Run the container from the image created
 
 ```
-Give an example
+docker run tweets-etl
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - The AWS SDK for Python
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
 * **Carlos Montenegro** - *Initial work* - [carlos2606](https://github.com/carlos2606)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
